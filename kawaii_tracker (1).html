@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 Твоя Магическая Трансформация</title>
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --pink-pastel: #FFB3D9;
+            --purple-pastel: #C9A9E9;
+            --blue-pastel: #A9D9F5;
+            --yellow-pastel: #FFF4B3;
+            --green-pastel: #B3F5D9;
+            --peach-pastel: #FFCAB3;
+            --bg-main: #FFF5FB;
+            --bg-card: #FFFFFF;
+            --text-dark: #5D4E6D;
+            --text-light: #9B8AA8;
+            --shadow-soft: 0 8px 32px rgba(255, 179, 217, 0.3);
+            --shadow-hover: 0 12px 48px rgba(255, 179, 217, 0.4);
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #FFF5FB 0%, #F0E5FF 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+        
+        /* Floating decorations */
+        .decoration {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+            z-index: 1;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        .star {
+            font-size: 2em;
+        }
+        
+        .sparkle {
+            font-size: 1.5em;
+            animation-delay: 1s;
+        }
+        
+        .heart {
+            font-size: 1.8em;
+            animation-delay: 2s;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: slideDown 0.8s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .header h1 {
+            font-family: 'Righteous', cursive;
+            font-size: 3.5em;
+            background: linear-gradient(135deg, var(--pink-pastel), var(--purple-pastel), var(--blue-pastel));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 12px rgba(255, 179, 217, 0.3);
+            letter-spacing: 2px;
+        }
+        
+        .header p {
+            font-size: 1.3em;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+        
+        /* Progress Overview */
+        .progress-overview {
+            background: var(--bg-card);
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-soft);
+            border: 3px solid var(--pink-pastel);
+            animation: fadeIn 1s ease-out 0.3s both;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, var(--pink-pastel) 0%, var(--purple-pastel) 100%);
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .stat-number {
+            font-size: 3em;
+            font-weight: 800;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 1em;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+        
+        /* Progress Bar */
+        .progress-bar-section {
+            margin-top: 30px;
+        }
+        
+        .progress-bar-container {
+            background: #F0E5FF;
+            height: 40px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            border: 3px solid var(--purple-pastel);
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--pink-pastel), var(--purple-pastel), var(--blue-pastel));
+            transition: width 1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 15px;
+            color: white;
+            font-weight: 800;
+            font-size: 1.1em;
+            position: relative;
+        }
+        
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* Tab Navigation */
+        .tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            animation: fadeIn 1s ease-out 0.5s both;
+        }
+        
+        .tab-btn {
+            padding: 15px 30px;
+            border: 3px solid var(--pink-pastel);
+            border-radius: 25px;
+            background: white;
+            color: var(--text-dark);
+            font-weight: 700;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .tab-btn:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--pink-pastel), var(--purple-pastel));
+            color: white;
+            border-color: transparent;
+            transform: scale(1.1);
+        }
+        
+        /* Daily Tasks Section */
+        .daily-section {
+            display: none;
+        }
+        
+        .daily-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .daily-header {
+            background: var(--bg-card);
+            border-radius: 25px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-soft);
+            border: 3px solid var(--blue-pastel);
+        }
+        
+        .daily-header h2 {
+            font-size: 2em;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+        
+        .day-selector {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .day-btn {
+            padding: 10px 20px;
+            border: 2px solid var(--purple-pastel);
+            border-radius: 15px;
+            background: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .day-btn:hover {
+            background: var(--purple-pastel);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .day-btn.active {
+            background: linear-gradient(135deg, var(--purple-pastel), var(--blue-pastel));
+            color: white;
+            border-color: transparent;
+        }
+        
+        /* Task Categories */
+        .categories-grid {
+            display: grid;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .category-card {
+            background: var(--bg-card);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: var(--shadow-soft);
+            border-left: 6px solid;
+            transition: all 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateX(5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .category-card.health { border-color: var(--pink-pastel); }
+        .category-card.career { border-color: var(--yellow-pastel); }
+        .category-card.relationships { border-color: var(--peach-pastel); }
+        .category-card.personal { border-color: var(--purple-pastel); }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .category-icon {
+            font-size: 2.5em;
+            margin-right: 15px;
+        }
+        
+        .category-title {
+            font-size: 1.5em;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+        
+        /* Task Items */
+        .task-list {
+            list-style: none;
+        }
+        
+        .task-item {
+            padding: 15px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #FFF5FB 0%, #F9F0FF 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .task-item:hover {
+            border-color: var(--pink-pastel);
+            transform: translateX(5px);
+        }
+        
+        .task-item.completed {
+            opacity: 0.7;
+            background: linear-gradient(135deg, var(--green-pastel) 0%, #E5F9F0 100%);
+        }
+        
+        .task-checkbox {
+            width: 30px;
+            height: 30px;
+            border: 3px solid var(--purple-pastel);
+            border-radius: 50%;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        
+        .task-item.completed .task-checkbox {
+            background: linear-gradient(135deg, var(--pink-pastel), var(--purple-pastel));
+            border-color: transparent;
+            animation: checkPop 0.3s ease;
+        }
+        
+        @keyframes checkPop {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        .checkmark {
+            color: white;
+            font-weight: bold;
+            font-size: 1.2em;
+            display: none;
+        }
+        
+        .task-item.completed .checkmark {
+            display: block;
+        }
+        
+        .task-text {
+            flex: 1;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        
+        .task-item.completed .task-text {
+            text-decoration: line-through;
+        }
+        
+        /* Custom Tasks Section */
+        .add-task-form {
+            background: var(--bg-card);
+            border-radius: 25px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: var(--shadow-soft);
+            border: 3px dashed var(--pink-pastel);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 3px solid var(--purple-pastel);
+            border-radius: 15px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1em;
+            background: white;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--pink-pastel);
+            box-shadow: 0 0 0 4px rgba(255, 179, 217, 0.2);
+        }
+        
+        .btn-add {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--pink-pastel), var(--purple-pastel));
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-weight: 800;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .btn-add:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        /* Reminders Section */
+        .reminder-card {
+            background: var(--bg-card);
+            border-radius: 25px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-soft);
+            border: 3px solid var(--yellow-pastel);
+        }
+        
+        .reminder-time {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .time-input {
+            padding: 12px 20px;
+            border: 3px solid var(--purple-pastel);
+            border-radius: 15px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 600;
+        }
+        
+        .btn-set-reminder {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--yellow-pastel), var(--peach-pastel));
+            color: var(--text-dark);
+            border: none;
+            border-radius: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .btn-set-reminder:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--pink-pastel), var(--purple-pastel));
+            color: white;
+            padding: 20px 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-hover);
+            font-weight: 700;
+            z-index: 1000;
+            animation: slideInRight 0.5s ease-out;
+            max-width: 300px;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .tabs {
+                justify-content: center;
+            }
+            
+            .tab-btn {
+                font-size: 0.9em;
+                padding: 12px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Decorations -->
+    <div class="decoration star" style="top: 10%; left: 5%;">⭐</div>
+    <div class="decoration sparkle" style="top: 20%; right: 10%;">✨</div>
+    <div class="decoration heart" style="top: 60%; left: 8%;">💖</div>
+    <div class="decoration star" style="top: 70%; right: 15%;">🌟</div>
+    <div class="decoration sparkle" style="top: 40%; right: 5%;">💫</div>
+    <div class="decoration heart" style="bottom: 15%; left: 12%;">💝</div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🌸 Твоя Магическая Трансформация 🌸</h1>
+            <p>Каждый день - шаг к лучшей версии себя ✨</p>
+        </div>
+
+        <!-- Progress Overview -->
+        <div class="progress-overview">
+            <h2 style="font-size: 2em; margin-bottom: 20px; color: var(--text-dark);">📊 Твой Прогресс</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card" style="background: linear-gradient(135deg, #FFB3D9, #FF8FB3);">
+                    <span class="stat-number" id="currentDay">1</span>
+                    <span class="stat-label">День путешествия</span>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #C9A9E9, #A989D9);">
+                    <span class="stat-number" id="completedToday">0</span>
+                    <span class="stat-label">Задач сегодня</span>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #A9D9F5, #89C9E5);">
+                    <span class="stat-number" id="totalCompleted">0</span>
+                    <span class="stat-label">Всего выполнено</span>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #B3F5D9, #93E5C9);">
+                    <span class="stat-number" id="streak">0</span>
+                    <span class="stat-label">Дней подряд 🔥</span>
+                </div>
+            </div>
+
+            <div class="progress-bar-section">
+                <h3 style="margin-bottom: 15px; color: var(--text-dark);">Прогресс 90-дневного путешествия</h3>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="mainProgress">0%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="daily">📅 Мои Дни</button>
+            <button class="tab-btn" data-tab="custom">➕ Свои Задачи</button>
+            <button class="tab-btn" data-tab="reminders">⏰ Напоминания</button>
+            <button class="tab-btn" data-tab="progress">📈 График Прогресса</button>
+        </div>
+
+        <!-- Daily Tasks Section -->
+        <div class="daily-section active" id="dailySection">
+            <div class="daily-header">
+                <h2>🌟 Выбери свой день</h2>
+                <div class="day-selector" id="daySelector"></div>
+            </div>
+
+            <div id="tasksContainer" class="categories-grid"></div>
+        </div>
+
+        <!-- Custom Tasks Section -->
+        <div class="daily-section" id="customSection">
+            <div class="add-task-form">
+                <h2 style="margin-bottom: 20px; color: var(--text-dark);">✨ Добавь свою задачу</h2>
+                
+                <div class="form-group">
+                    <label>Название задачи</label>
+                    <input type="text" id="customTaskName" placeholder="Например: Выучить 10 новых слов">
+                </div>
+                
+                <div class="form-group">
+                    <label>Описание (необязательно)</label>
+                    <textarea id="customTaskDesc" rows="3" placeholder="Дополнительные детали..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Категория</label>
+                    <select id="customTaskCategory">
+                        <option value="health">💪 Здоровье</option>
+                        <option value="career">💼 Карьера</option>
+                        <option value="relationships">❤️ Отношения</option>
+                        <option value="personal">🎯 Личный рост</option>
+                    </select>
+                </div>
+                
+                <button class="btn-add" onclick="addCustomTask()">Добавить задачу 🌸</button>
+            </div>
+
+            <div id="customTasksList" style="margin-top: 30px;"></div>
+        </div>
+
+        <!-- Reminders Section -->
+        <div class="daily-section" id="remindersSection">
+            <div class="reminder-card">
+                <h2 style="margin-bottom: 15px; color: var(--text-dark);">⏰ Установи ежедневное напоминание</h2>
+                <p style="color: var(--text-light); margin-bottom: 20px;">Мы напомним тебе проверить свои задачи!</p>
+                
+                <div class="reminder-time">
+                    <input type="time" class="time-input" id="reminderTime" value="09:00">
+                    <button class="btn-set-reminder" onclick="setReminder()">Установить напоминание 💝</button>
+                </div>
+                
+                <div id="reminderStatus" style="margin-top: 20px; font-weight: 600; color: var(--text-dark);"></div>
+            </div>
+
+            <div class="reminder-card" style="margin-top: 20px;">
+                <h3 style="margin-bottom: 15px; color: var(--text-dark);">🔔 Разрешения на уведомления</h3>
+                <p style="color: var(--text-light); margin-bottom: 15px;">Чтобы получать напоминания, нужно разрешить уведомления в браузере</p>
+                <button class="btn-set-reminder" onclick="requestNotificationPermission()">Разрешить уведомления ✨</button>
+            </div>
+        </div>
+
+        <!-- Progress Chart Section -->
+        <div class="daily-section" id="progressSection">
+            <div class="reminder-card">
+                <h2 style="margin-bottom: 20px; color: var(--text-dark);">📈 Твой График Прогресса</h2>
+                <canvas id="progressChart" width="400" height="200"></canvas>
+            </div>
+
+            <div class="stats-grid" style="margin-top: 20px;">
+                <div class="stat-card" style="background: linear-gradient(135deg, #FFB3D9, #FF8FB3);">
+                    <span class="stat-number" id="avgCompletion">0%</span>
+                    <span class="stat-label">Средний % выполнения</span>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #C9A9E9, #A989D9);">
+                    <span class="stat-number" id="bestDay">-</span>
+                    <span class="stat-label">Лучший день</span>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #A9D9F5, #89C9E5);">
+                    <span class="stat-number" id="totalDaysActive">0</span>
+                    <span class="stat-label">Активных дней</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data structure
+        const phaseData = {
+            1: {
+                phase: 'Фаза 1: Фундамент (Дни 1-30)',
+                categories: {
+                    health: {
+                        title: 'Здоровье и Энергия',
+                        icon: '💪',
+                        tasks: [
+                            'Лечь спать в одно и то же время',
+                            'Двигаться минимум 20 минут',
+                            'Выпить 1.5-2 литра воды',
+                            'Позавтракать'
+                        ]
+                    },
+                    career: {
+                        title: 'Карьера и Финансы',
+                        icon: '💼',
+                        tasks: [
+                            'Записать все расходы за день',
+                            'Отложить 50-100 рублей в копилку',
+                            '15 минут на обучение навыку'
+                        ]
+                    },
+                    relationships: {
+                        title: 'Отношения и Социум',
+                        icon: '❤️',
+                        tasks: [
+                            'Написать/позвонить важному человеку',
+                            'Практиковать активное слушание'
+                        ]
+                    },
+                    personal: {
+                        title: 'Личностный Рост',
+                        icon: '🎯',
+                        tasks: [
+                            'Вести дневник 5-10 минут',
+                            'Медитация 5 минут утром',
+                            'Прочитать 10-15 страниц книги'
+                        ]
+                    }
+                }
+            },
+            2: {
+                phase: 'Фаза 2: Ускорение (Дни 31-60)',
+                categories: {
+                    health: {
+                        title: 'Здоровье и Энергия',
+                        icon: '💪',
+                        tasks: [
+                            'Тренировка 30-40 минут',
+                            'Силовые упражнения',
+                            'Планировать меню на завтра',
+                            'Растяжка 10 минут'
+                        ]
+                    },
+                    career: {
+                        title: 'Карьера и Финансы',
+                        icon: '💼',
+                        tasks: [
+                            'Работать над доп. проектом 1 час',
+                            'Связаться с человеком из сети',
+                            'Автоматизировать платеж',
+                            'Читать проф. литературу 20 мин'
+                        ]
+                    },
+                    relationships: {
+                        title: 'Отношения и Социум',
+                        icon: '❤️',
+                        tasks: [
+                            'Качественное время с близким (1+ час)',
+                            'Глубокое слушание без телефона',
+                            'Выразить благодарность'
+                        ]
+                    },
+                    personal: {
+                        title: 'Личностный Рост',
+                        icon: '🎯',
+                        tasks: [
+                            'Дневник + анализ (10-15 мин)',
+                            'Практика навыка 30-45 минут',
+                            'Одна вещь вне зоны комфорта'
+                        ]
+                    }
+                }
+            },
+            3: {
+                phase: 'Фаза 3: Интеграция (Дни 61-90)',
+                categories: {
+                    health: {
+                        title: 'Здоровье и Энергия',
+                        icon: '💪',
+                        tasks: [
+                            'Тренировка по персональному плану',
+                            'Слушать тело - корректировать',
+                            'Готовить еду на 2-3 дня',
+                            'Практика восстановления'
+                        ]
+                    },
+                    career: {
+                        title: 'Карьера и Финансы',
+                        icon: '💼',
+                        tasks: [
+                            'Долгосрочный проект 2+ часа',
+                            'Работа над личным брендом',
+                            'Анализ финансовых целей',
+                            'Делиться экспертизой'
+                        ]
+                    },
+                    relationships: {
+                        title: 'Отношения и Социум',
+                        icon: '❤️',
+                        tasks: [
+                            'Практиковать уязвимость',
+                            'Организовать соц. активность',
+                            'Помочь без ожидания отдачи'
+                        ]
+                    },
+                    personal: {
+                        title: 'Личностный Рост',
+                        icon: '🎯',
+                        tasks: [
+                            'Дневник + проверка ценностей',
+                            'Продвинутая практика навыка',
+                            'Практика благодарности',
+                            'Работа над творч. проектом'
+                        ]
+                    }
+                }
+            }
+        };
+
+        // State
+        let currentDay = parseInt(localStorage.getItem('currentDay')) || 1;
+        let completedTasks = JSON.parse(localStorage.getItem('completedTasks')) || {};
+        let customTasks = JSON.parse(localStorage.getItem('customTasks')) || [];
+        let progressHistory = JSON.parse(localStorage.getItem('progressHistory')) || {};
+
+        // Initialize
+        function init() {
+            renderDaySelector();
+            renderTasks(currentDay);
+            renderCustomTasks();
+            updateStats();
+            setupTabs();
+            checkReminder();
+            renderProgressChart();
+        }
+
+        // Day selector
+        function renderDaySelector() {
+            const selector = document.getElementById('daySelector');
+            selector.innerHTML = '';
+            
+            for (let i = 1; i <= 90; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'day-btn';
+                btn.textContent = `День ${i}`;
+                if (i === currentDay) btn.classList.add('active');
+                btn.onclick = () => selectDay(i);
+                selector.appendChild(btn);
+            }
+        }
+
+        function selectDay(day) {
+            currentDay = day;
+            localStorage.setItem('currentDay', day);
+            renderDaySelector();
+            renderTasks(day);
+            updateStats();
+        }
+
+        // Render tasks
+        function renderTasks(day) {
+            const phase = day <= 30 ? 1 : day <= 60 ? 2 : 3;
+            const data = phaseData[phase];
+            const container = document.getElementById('tasksContainer');
+            
+            container.innerHTML = '';
+            
+            Object.keys(data.categories).forEach(catKey => {
+                const cat = data.categories[catKey];
+                const card = document.createElement('div');
+                card.className = `category-card ${catKey}`;
+                
+                let tasksHTML = cat.tasks.map((task, idx) => {
+                    const taskId = `day${day}-${catKey}-${idx}`;
+                    const isCompleted = completedTasks[taskId] || false;
+                    
+                    return `
+                        <li class="task-item ${isCompleted ? 'completed' : ''}" onclick="toggleTask('${taskId}')">
+                            <div class="task-checkbox">
+                                <span class="checkmark">✓</span>
+                            </div>
+                            <span class="task-text">${task}</span>
+                        </li>
+                    `;
+                }).join('');
+                
+                card.innerHTML = `
+                    <div class="category-header">
+                        <span class="category-icon">${cat.icon}</span>
+                        <span class="category-title">${cat.title}</span>
+                    </div>
+                    <ul class="task-list">${tasksHTML}</ul>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+
+        // Toggle task
+        function toggleTask(taskId) {
+            completedTasks[taskId] = !completedTasks[taskId];
+            localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+            
+            // Update progress history
+            const today = new Date().toDateString();
+            if (!progressHistory[today]) {
+                progressHistory[today] = { day: currentDay, completed: 0 };
+            }
+            
+            renderTasks(currentDay);
+            updateStats();
+            saveProgressHistory();
+            renderProgressChart();
+            
+            if (completedTasks[taskId]) {
+                showNotification('Отлично! Задача выполнена! 🎉');
+            }
+        }
+
+        // Custom tasks
+        function addCustomTask() {
+            const name = document.getElementById('customTaskName').value;
+            const desc = document.getElementById('customTaskDesc').value;
+            const category = document.getElementById('customTaskCategory').value;
+            
+            if (!name) {
+                alert('Введи название задачи! 💖');
+                return;
+            }
+            
+            customTasks.push({
+                id: Date.now(),
+                name,
+                desc,
+                category,
+                completed: false
+            });
+            
+            localStorage.setItem('customTasks', JSON.stringify(customTasks));
+            renderCustomTasks();
+            
+            document.getElementById('customTaskName').value = '';
+            document.getElementById('customTaskDesc').value = '';
+            
+            showNotification('Задача добавлена! ✨');
+        }
+
+        function renderCustomTasks() {
+            const container = document.getElementById('customTasksList');
+            
+            if (customTasks.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 40px;">Пока нет своих задач. Добавь первую! 🌸</p>';
+                return;
+            }
+            
+            const grouped = {};
+            customTasks.forEach(task => {
+                if (!grouped[task.category]) grouped[task.category] = [];
+                grouped[task.category].push(task);
+            });
+            
+            container.innerHTML = '';
+            
+            Object.keys(grouped).forEach(catKey => {
+                const catInfo = {
+                    health: { title: 'Здоровье', icon: '💪' },
+                    career: { title: 'Карьера', icon: '💼' },
+                    relationships: { title: 'Отношения', icon: '❤️' },
+                    personal: { title: 'Личный рост', icon: '🎯' }
+                };
+                
+                const card = document.createElement('div');
+                card.className = `category-card ${catKey}`;
+                
+                const tasksHTML = grouped[catKey].map(task => `
+                    <li class="task-item ${task.completed ? 'completed' : ''}" onclick="toggleCustomTask(${task.id})">
+                        <div class="task-checkbox">
+                            <span class="checkmark">✓</span>
+                        </div>
+                        <div style="flex: 1;">
+                            <div class="task-text">${task.name}</div>
+                            ${task.desc ? `<div style="font-size: 0.9em; color: var(--text-light); margin-top: 5px;">${task.desc}</div>` : ''}
+                        </div>
+                        <button onclick="deleteCustomTask(${task.id}, event)" style="background: none; border: none; font-size: 1.5em; cursor: pointer; padding: 5px;">🗑️</button>
+                    </li>
+                `).join('');
+                
+                card.innerHTML = `
+                    <div class="category-header">
+                        <span class="category-icon">${catInfo[catKey].icon}</span>
+                        <span class="category-title">${catInfo[catKey].title}</span>
+                    </div>
+                    <ul class="task-list">${tasksHTML}</ul>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+
+        function toggleCustomTask(id) {
+            const task = customTasks.find(t => t.id === id);
+            if (task) {
+                task.completed = !task.completed;
+                localStorage.setItem('customTasks', JSON.stringify(customTasks));
+                renderCustomTasks();
+                updateStats();
+                
+                if (task.completed) {
+                    showNotification('Своя задача выполнена! 💫');
+                }
+            }
+        }
+
+        function deleteCustomTask(id, event) {
+            event.stopPropagation();
+            if (confirm('Удалить эту задачу?')) {
+                customTasks = customTasks.filter(t => t.id !== id);
+                localStorage.setItem('customTasks', JSON.stringify(customTasks));
+                renderCustomTasks();
+                updateStats();
+            }
+        }
+
+        // Stats
+        function updateStats() {
+            const today = new Date().toDateString();
+            const todayCompleted = Object.keys(completedTasks).filter(key => 
+                key.startsWith(`day${currentDay}-`) && completedTasks[key]
+            ).length + customTasks.filter(t => t.completed).length;
+            
+            const totalCompleted = Object.values(completedTasks).filter(v => v).length + 
+                                   customTasks.filter(t => t.completed).length;
+            
+            const streak = calculateStreak();
+            const progress = Math.round((currentDay / 90) * 100);
+            
+            document.getElementById('currentDay').textContent = currentDay;
+            document.getElementById('completedToday').textContent = todayCompleted;
+            document.getElementById('totalCompleted').textContent = totalCompleted;
+            document.getElementById('streak').textContent = streak;
+            document.getElementById('mainProgress').style.width = progress + '%';
+            document.getElementById('mainProgress').textContent = progress + '%';
+        }
+
+        function calculateStreak() {
+            const days = Object.keys(progressHistory).sort().reverse();
+            let streak = 0;
+            const today = new Date();
+            
+            for (let i = 0; i < days.length; i++) {
+                const date = new Date(days[i]);
+                const diff = Math.floor((today - date) / (1000 * 60 * 60 * 24));
+                
+                if (diff === i && progressHistory[days[i]].completed > 0) {
+                    streak++;
+                } else {
+                    break;
+                }
+            }
+            
+            return streak;
+        }
+
+        function saveProgressHistory() {
+            const today = new Date().toDateString();
+            const todayCompleted = Object.keys(completedTasks).filter(key => 
+                key.startsWith(`day${currentDay}-`) && completedTasks[key]
+            ).length;
+            
+            progressHistory[today] = {
+                day: currentDay,
+                completed: todayCompleted
+            };
+            
+            localStorage.setItem('progressHistory', JSON.stringify(progressHistory));
+        }
+
+        // Progress Chart
+        function renderProgressChart() {
+            const canvas = document.getElementById('progressChart');
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+            
+            ctx.clearRect(0, 0, width, height);
+            
+            const days = Object.keys(progressHistory).sort();
+            if (days.length === 0) return;
+            
+            const data = days.map(day => progressHistory[day].completed);
+            const maxValue = Math.max(...data, 1);
+            
+            // Draw bars
+            const barWidth = width / days.length;
+            data.forEach((value, i) => {
+                const barHeight = (value / maxValue) * (height - 40);
+                const x = i * barWidth;
+                const y = height - barHeight - 20;
+                
+                const gradient = ctx.createLinearGradient(0, y, 0, height);
+                gradient.addColorStop(0, '#FFB3D9');
+                gradient.addColorStop(1, '#C9A9E9');
+                
+                ctx.fillStyle = gradient;
+                ctx.fillRect(x + 2, y, barWidth - 4, barHeight);
+            });
+            
+            // Stats
+            const avg = Math.round(data.reduce((a, b) => a + b, 0) / data.length);
+            const bestDayIndex = data.indexOf(Math.max(...data));
+            const bestDay = progressHistory[days[bestDayIndex]].day;
+            
+            document.getElementById('avgCompletion').textContent = avg;
+            document.getElementById('bestDay').textContent = `День ${bestDay}`;
+            document.getElementById('totalDaysActive').textContent = days.length;
+        }
+
+        // Reminders
+        function setReminder() {
+            const time = document.getElementById('reminderTime').value;
+            localStorage.setItem('reminderTime', time);
+            
+            document.getElementById('reminderStatus').innerHTML = `
+                ✅ Напоминание установлено на ${time}! Мы напомним тебе каждый день 💝
+            `;
+            
+            scheduleReminder();
+            showNotification('Напоминание установлено! ⏰');
+        }
+
+        function scheduleReminder() {
+            const time = localStorage.getItem('reminderTime');
+            if (!time) return;
+            
+            const [hours, minutes] = time.split(':');
+            const now = new Date();
+            const reminderTime = new Date();
+            reminderTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+            
+            if (reminderTime < now) {
+                reminderTime.setDate(reminderTime.getDate() + 1);
+            }
+            
+            const timeUntilReminder = reminderTime - now;
+            
+            setTimeout(() => {
+                sendNotification();
+                scheduleReminder(); // Schedule next day
+            }, timeUntilReminder);
+        }
+
+        function checkReminder() {
+            const time = localStorage.getItem('reminderTime');
+            if (time) {
+                document.getElementById('reminderTime').value = time;
+                document.getElementById('reminderStatus').innerHTML = `
+                    ✅ Напоминание установлено на ${time}
+                `;
+                scheduleReminder();
+            }
+        }
+
+        function requestNotificationPermission() {
+            if ('Notification' in window) {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        showNotification('Отлично! Теперь ты будешь получать напоминания! 🎉');
+                    }
+                });
+            } else {
+                alert('Твой браузер не поддерживает уведомления 😢');
+            }
+        }
+
+        function sendNotification() {
+            if ('Notification' in window && Notification.permission === 'granted') {
+                new Notification('🌸 Время для трансформации!', {
+                    body: 'Проверь свои задачи на сегодня! Ты можешь это сделать! 💪✨',
+                    icon: '🌸'
+                });
+            }
+        }
+
+        // Tabs
+        function setupTabs() {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.daily-section').forEach(s => s.classList.remove('active'));
+                    
+                    this.classList.add('active');
+                    const tab = this.dataset.tab;
+                    document.getElementById(tab + 'Section').classList.add('active');
+                    
+                    if (tab === 'progress') {
+                        renderProgressChart();
+                    }
+                });
+            });
+        }
+
+        // Notifications
+        function showNotification(message) {
+            const notif = document.createElement('div');
+            notif.className = 'notification';
+            notif.textContent = message;
+            document.body.appendChild(notif);
+            
+            setTimeout(() => {
+                notif.remove();
+            }, 3000);
+        }
+
+        // Initialize on load
+        init();
+    </script>
+</body>
+</html>
